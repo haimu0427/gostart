@@ -28,19 +28,25 @@ func main() {
 	for i := 0; i < worker; i++ {
 		go popChan(numChan, resChan, &resNum, &wg)
 	}
-
-	//遍历输出
-	wg.Wait()
-	// 关闭结果通道
-	close(resChan)
+	go func() {
+		wg.Wait()
+		close(resChan)
+	}()
+	wg.Wait() // 等待所有 goroutine 完成
 	resNum.Lock()
-	for i, v := range resNum.m {
-		fmt.Println("sum of ", i, " is ", v)
+	// for i, v := range resNum.m {
+	// 	fmt.Println("sum of ", i, " is ", v)
+	// }
+	for i := 1; i <= 2000; i++ {
+		if v, ok := resNum.m[i]; ok {
+			fmt.Println("sum of ", i, " is ", v)
+		}
 	}
 	resNum.Unlock()
 }
 func pushChan(numChan chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
+	defer close(numChan)
 	for i := 0; i < 2000; i++ {
 		numChan <- i
 	}
@@ -49,8 +55,9 @@ func popChan(numChan chan int, resChan chan int, resNum *resMap, wg *sync.WaitGr
 	defer wg.Done()
 	for v := range numChan {
 		resNum.Lock()
-		resChan <- calSum(v, resNum.m)
+		res := calSum(v, resNum.m)
 		resNum.Unlock()
+		resChan <- res
 	}
 }
 func calSum(n int, resNum map[int]int) int {
@@ -59,7 +66,7 @@ func calSum(n int, resNum map[int]int) int {
 		resNum[1] = 1
 		return 1
 	} else {
-		resNum[n] = resNum[n-1] + n
+		resNum[n] = n * (n + 1) / 2
 	}
 	return resNum[n]
 }
