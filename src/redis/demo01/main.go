@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -18,6 +19,20 @@ func main() {
 
 	//设置空白文本流和Redis客户端
 	ctx := context.Background()
+	rdb2 := redis.NewClient(&redis.Options{
+		Addr:     "redis-10059.c325.us-east-1-4.ec2.redns.redis-cloud.com:10059",
+		Password: "",
+		DB:       0,
+
+		// 连接池配置
+		PoolSize:     10,               // 最大连接数
+		MinIdleConns: 5,                // 最小空闲连接数
+		MaxIdleConns: 10,               // 最大空闲连接数
+		PoolTimeout:  30 * time.Second, // 获取连接的超时时间
+
+	})
+	defer rdb2.Close()
+
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "120.26.105.128:6379",
 		Password: "666666",
@@ -80,4 +95,5 @@ func main() {
 	}
 
 	fmt.Printf("Model: %v Brand: %v Type: %v Price: %v\n", bike.Model, bike.Brand, bike.Type, bike.Price)
+
 }
