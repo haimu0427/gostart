@@ -1,0 +1,56 @@
+<!--定义模板-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {{/* 模板语法 
+    1. 遇事不决, 先写注释
+    2. 可以换行
+    类似与css吧
+    */}}
+
+    {{ $v1 := 100 }}
+    {{ $age := 18 }}
+<hr>
+    {{ if $v1 }}
+    {{ $v1 }}
+    {{ else }}
+    there is nothing 
+    {{ end }}
+<hr>
+    {{ if lt .user.Age 18 }}
+    好好上学
+    {{ else if eq .user.Age 18 }}
+    恭喜你成年了
+    {{ else }}
+    你已经长大了
+    {{ end }}
+<hr>
+
+{{ range $index, $value := .hobby }}
+    <p>idx : {{ $index }} value: {{ $value }}</p>
+{{else}}
+    <p>没有爱好, 空空如也</p>
+    <p>花钱的才叫爱好, 不花钱的那叫陋习. 人为了花钱需要编织出许多理由来安慰自己</p>
+{{ end }}
+
+{{ with .data }}
+    <p>Title is {{ .title }} </p>
+    <p>Count is {{ .count }} </p>
+    <p>Flag is {{ .flag }} </p>
+{{ end }}
+
+{{ index .hobby 2 }}
+
+<hr>
+    <p>Hello {{- .user.Name -}} </p>
+    <p>Your age is {{- .user.Age -}}</p>
+    <p>Your Gender is {{- .user.Gender -}}</p>
+    <p>Your data is {{- .data.title -}}</p>
+</body>
+</html>

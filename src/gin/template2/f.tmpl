@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+{{/* 引入其他 or difine的 模板 */}}
+<hr>
+{{ template "ol.tmpl" . }}
+<hr>
+{{ template "ul.tmpl" . }}
+<br>
+{{ kua . }}
+</body>
+
+</html>
+{{ define "ol.tmpl" }}
+    <ol>
+    <li>吃饭</li>
+    <li>睡觉</li>
+    <li>打豆豆</li>
+    </ol>
+{{ end }}

@@ -1,0 +1,9 @@
+<h1>hello GoLang<h1>
+<h2>how are you<h2>
+<img id='i1' src="https://www.runoob.com/wp-content/uploads/2013/06/image-icon.png">
+<button id='b1'>click me !</button>
+<script>
+document.getElementById('b1').onclick=function(){
+    document.getElementById('i1').src='https://pkg.go.dev/static/shared/logo/go-blue.svg'
+}
+</script>
