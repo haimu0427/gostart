@@ -11,6 +11,7 @@ import (
 func main() {
 	// 创建默认的路由引擎
 	r := gin.Default()
+	// 处理请求
 	r.GET("/hello", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "<h1>Hello Gin</h1>",
@@ -31,6 +32,6 @@ func main() {
 			"message": "<h1>Hello Gin DELETE</h1>",
 		})
 	})
-
+	// 启动HTTP服务，默认在8080端口启动服务
 	r.Run(":8080")
 }
