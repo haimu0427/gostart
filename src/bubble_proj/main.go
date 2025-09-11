@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	_ "database/sql"
+	"proj/dao"
+	"proj/router"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run(":8080")
+	//数据库
+	err := dao.InitMYSQL()
+	if err != nil {
+		panic(err)
+	}
+	router := router.SetupRouter()
+	router.Run(":8080")
 }

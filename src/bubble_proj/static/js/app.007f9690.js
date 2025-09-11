@@ -1,1 +1,349 @@
-(function(e){function t(t){for(var o,s,i=t[0],l=t[1],c=t[2],d=0,f=[];d<i.length;d++)s=i[d],Object.prototype.hasOwnProperty.call(r,s)&&r[s]&&f.push(r[s][0]),r[s]=0;for(o in l)Object.prototype.hasOwnProperty.call(l,o)&&(e[o]=l[o]);u&&u(t);while(f.length)f.shift()();return a.push.apply(a,c||[]),n()}function n(){for(var e,t=0;t<a.length;t++){for(var n=a[t],o=!0,i=1;i<n.length;i++){var l=n[i];0!==r[l]&&(o=!1)}o&&(a.splice(t--,1),e=s(s.s=n[0]))}return e}var o={},r={app:0},a=[];function s(t){if(o[t])return o[t].exports;var n=o[t]={i:t,l:!1,exports:{}};return e[t].call(n.exports,n,n.exports,s),n.l=!0,n.exports}s.m=e,s.c=o,s.d=function(e,t,n){s.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},s.r=function(e){"undefined"!==typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},s.t=function(e,t){if(1&t&&(e=s(e)),8&t)return e;if(4&t&&"object"===typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(s.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)s.d(n,o,function(t){return e[t]}.bind(null,o));return n},s.n=function(e){var t=e&&e.__esModule?function(){return e["default"]}:function(){return e};return s.d(t,"a",t),t},s.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},s.p="/";var i=window["webpackJsonp"]=window["webpackJsonp"]||[],l=i.push.bind(i);i.push=t,i=i.slice();for(var c=0;c<i.length;c++)t(i[c]);var u=l;a.push([0,"chunk-vendors"]),n()})({0:function(e,t,n){e.exports=n("56d7")},"034f":function(e,t,n){"use strict";var o=n("85ec"),r=n.n(o);r.a},"56d7":function(e,t,n){"use strict";n.r(t);n("e260"),n("e6cf"),n("cca6"),n("a79d");var o=n("2b0e"),r=(n("d3b7"),n("bc3a")),a=n.n(r),s={},i=a.a.create(s);i.interceptors.request.use((function(e){return e}),(function(e){return Promise.reject(e)})),i.interceptors.response.use((function(e){return e}),(function(e){return Promise.reject(e)})),Plugin.install=function(e){e.axios=i,window.axios=i,Object.defineProperties(e.prototype,{axios:{get:function(){return i}},$axios:{get:function(){return i}}})},o["default"].use(Plugin);Plugin;var l=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("Index")},c=[],u=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("el-container",[n("el-header",[e._v("gin框架小练习")]),n("el-main",[n("el-row",{attrs:{type:"flex",justify:"center"}},[n("el-col",{attrs:{xs:20,span:12}},[n("div",{staticClass:"grid-content"},[n("el-divider",[n("h1",[e._v("bubble清单")])]),n("TodoList")],1)])],1)],1),n("el-footer",[e._v("q1mi出品 Go学习交流QQ群：645090316")])],1)},d=[],f=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("el-card",{staticClass:"box-card"},[n("el-row",{attrs:{gutter:20}},[n("el-col",{attrs:{span:16,offset:2}},[n("el-input",{attrs:{size:"",placeholder:"请输入待办事项..."},model:{value:e.newTitle,callback:function(t){e.newTitle=t},expression:"newTitle"}})],1),n("el-col",{attrs:{span:6}},[n("el-button",{attrs:{type:"primary",icon:"el-icon-plus",circle:""},on:{click:e.handleAdd}})],1)],1),n("el-divider"),n("el-table",{staticStyle:{width:"100%"},attrs:{data:e.tableData,"row-class-name":e.tableRowClassName}},[n("el-table-column",{attrs:{type:"index",width:"50"}}),n("el-table-column",{attrs:{align:"center",label:"待办事项",prop:"title"}}),n("el-table-column",{attrs:{align:"right",label:"操作"},scopedSlots:e._u([{key:"default",fn:function(t){return[n("el-button",{directives:[{name:"show",rawName:"v-show",value:!t.row.status,expression:"!scope.row.status"}],attrs:{type:"success",icon:"el-icon-check",circle:""},on:{click:function(n){return e.handleEdit(t.$index,t.row)}}}),n("el-button",{directives:[{name:"show",rawName:"v-show",value:t.row.status,expression:"scope.row.status"}],attrs:{type:"warning",icon:"el-icon-refresh-left",circle:""},on:{click:function(n){return e.handleEdit(t.$index,t.row)}}}),n("el-button",{attrs:{type:"danger",icon:"el-icon-close",circle:""},on:{click:function(n){return e.handleDelete(t.$index,t.row.id)}}})]}}])})],1)],1)},p=[],h=(n("99af"),n("a434"),{name:"TodoList",data:function(){return{tableData:[],newTitle:""}},mounted:function(){var e=this;this.axios.get("/v1/todo").then((function(t){return e.tableData=t.data}))},methods:{tableRowClassName:function(e){var t=e.row;return t.status?"success-row":""},getTodoList:function(){var e=this;this.axios.get("/v1/todo").then((function(t){return e.tableData=t.data}))},handleEdit:function(e,t){var n=this,o=t.status?" 置为未完成":" 置为已完成";this.axios.put("/v1/todo/"+t.id,{status:!t.status}).then((function(){n.tableData[e].status=!t.status,n.$message({showClose:!0,duration:1500,message:"<".concat(t.title,"> ").concat(o),type:"success"})}))},handleDelete:function(e,t){var n=this;this.axios.delete("/v1/todo/"+t).then((function(){n.tableData.splice(e,1),n.$message({showClose:!0,duration:1500,message:"删除待办事项成功",type:"success"})}))},handleAdd:function(){var e=this;""!=this.newTitle?(this.axios.post("/v1/todo",{title:this.newTitle}).then((function(){e.getTodoList(),e.$message({showClose:!0,duration:1500,message:"添加待办事项成功",type:"success"})})),this.newTitle=""):this.$message({showClose:!0,duration:1500,message:"title不能为空哦",type:"warning"})}}}),v=h,w=(n("ed30"),n("2877")),b=Object(w["a"])(v,f,p,!1,null,null,null),m=b.exports,g={name:"Index",components:{TodoList:m}},x=g,y=(n("8fc1"),Object(w["a"])(x,u,d,!1,null,null,null)),j=y.exports,_={name:"app",components:{Index:j}},O=_,T=(n("034f"),Object(w["a"])(O,l,c,!1,null,null,null)),P=T.exports,$=n("5c96"),k=n.n($);n("0fae");o["default"].use(k.a);var C=n("8c4f");o["default"].use(C["a"]);var D=[{path:"/",name:"index",component:j}],S=new C["a"]({routes:D}),E=S;o["default"].config.productionTip=!0,new o["default"]({router:E,render:function(e){return e(P)}}).$mount("#app")},"85ec":function(e,t,n){},"89d2":function(e,t,n){},"8fc1":function(e,t,n){"use strict";var o=n("9272"),r=n.n(o);r.a},9272:function(e,t,n){},ed30:function(e,t,n){"use strict";var o=n("89d2"),r=n.n(o);r.a}});
+(function (modules) {
+    // webpackBootstrap
+    var installedModules = {};
+    var installedChunks = { app: 0 };
+    var deferredModules = [];
+
+    function webpackJsonpCallback(data) {
+        var chunkIds = data[0];
+        var moreModules = data[1];
+        var executeModules = data[2];
+        var i = 0, resolves = [];
+        for (; i < chunkIds.length; i++) {
+            var chunkId = chunkIds[i];
+            if (Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
+                resolves.push(installedChunks[chunkId][0]);
+            }
+            installedChunks[chunkId] = 0;
+        }
+        for (var moduleId in moreModules) {
+            if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+                modules[moduleId] = moreModules[moduleId];
+            }
+        }
+        if (parentJsonpFunction) parentJsonpFunction(data);
+        while (resolves.length) {
+            resolves.shift()();
+        }
+        deferredModules.push.apply(deferredModules, executeModules || []);
+        return checkDeferredModules();
+    }
+
+    function checkDeferredModules() {
+        var result;
+        for (var i = 0; i < deferredModules.length; i++) {
+            var deferredModule = deferredModules[i];
+            var fulfilled = true;
+            for (var j = 1; j < deferredModule.length; j++) {
+                var depId = deferredModule[j];
+                if (installedChunks[depId] !== 0) fulfilled = false;
+            }
+            if (fulfilled) {
+                deferredModules.splice(i--, 1);
+                result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+            }
+        }
+        return result;
+    }
+
+    function __webpack_require__(moduleId) {
+        if (installedModules[moduleId]) return installedModules[moduleId].exports;
+        var module = installedModules[moduleId] = { i: moduleId, l: false, exports: {} };
+        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+        module.l = true;
+        return module.exports;
+    }
+
+    __webpack_require__.m = modules;
+    __webpack_require__.c = installedModules;
+    __webpack_require__.d = function (exports, name, getter) {
+        if (!__webpack_require__.o(exports, name)) {
+            Object.defineProperty(exports, name, { enumerable: true, get: getter });
+        }
+    };
+    __webpack_require__.r = function (exports) {
+        if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+            Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+        }
+        Object.defineProperty(exports, "__esModule", { value: true });
+    };
+    __webpack_require__.t = function (value, mode) {
+        if (mode & 1) value = __webpack_require__(value);
+        if (mode & 8) return value;
+        if (mode & 4 && typeof value === "object" && value && value.__esModule) return value;
+        var ns = Object.create(null);
+        __webpack_require__.r(ns);
+        Object.defineProperty(ns, "default", { enumerable: true, value: value });
+        if (mode & 2 && typeof value != "string")
+            for (var key in value) __webpack_require__.d(ns, key, function (key) { return value[key]; }.bind(null, key));
+        return ns;
+    };
+    __webpack_require__.n = function (module) {
+        var getter = module && module.__esModule ?
+            function getDefault() { return module['default']; } :
+            function getModuleExports() { return module; };
+        __webpack_require__.d(getter, 'a', getter);
+        return getter;
+    };
+    __webpack_require__.o = function (object, property) {
+        return Object.prototype.hasOwnProperty.call(object, property);
+    };
+    __webpack_require__.p = "/";
+
+    var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+    var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+    jsonpArray.push = webpackJsonpCallback;
+    jsonpArray = jsonpArray.slice();
+    for (var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+    var parentJsonpFunction = oldJsonpFunction;
+    deferredModules.push([0, "chunk-vendors"]);
+    checkDeferredModules();
+})({
+    0: function (module, exports, __webpack_require__) {
+        module.exports = __webpack_require__("56d7");
+    },
+    "034f": function (module, exports, __webpack_require__) {
+        "use strict";
+        var style = __webpack_require__("85ec"), styleModule = __webpack_require__.n(style);
+        styleModule.a;
+    },
+    "56d7": function (module, exports, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(exports);
+        __webpack_require__("e260");
+        __webpack_require__("e6cf");
+        __webpack_require__("cca6");
+        __webpack_require__("a79d");
+        var Vue = __webpack_require__("2b0e"),
+            axiosLib = (__webpack_require__("d3b7"), __webpack_require__("bc3a")),
+            axios = __webpack_require__.n(axiosLib),
+            axiosConfig = {},
+            axiosInstance = axios.a.create(axiosConfig);
+
+        axiosInstance.interceptors.request.use(
+            function (config) { return config; },
+            function (error) { return Promise.reject(error); }
+        );
+        axiosInstance.interceptors.response.use(
+            function (response) { return response; },
+            function (error) { return Promise.reject(error); }
+        );
+
+        var Plugin = {};
+        Plugin.install = function (Vue) {
+            Vue.axios = axiosInstance;
+            window.axios = axiosInstance;
+            Object.defineProperties(Vue.prototype, {
+                axios: { get: function () { return axiosInstance; } },
+                $axios: { get: function () { return axiosInstance; } }
+            });
+        };
+        Vue["default"].use(Plugin);
+
+        var AppTemplate = function () {
+            var vm = this, createElement = vm.$createElement, c = vm._self._c || createElement;
+            return c("Index");
+        }, appStaticRenderFns = [];
+
+        var IndexTemplate = function () {
+            var vm = this, createElement = vm.$createElement, c = vm._self._c || createElement;
+            return c("el-container", [
+                c("el-header", [vm._v("gin框架小练习")]),
+                c("el-main", [
+                    c("el-row", { attrs: { type: "flex", justify: "center" } }, [
+                        c("el-col", { attrs: { xs: 20, span: 12 } }, [
+                            c("div", { staticClass: "grid-content" }, [
+                                c("el-divider", [c("h1", [vm._v("bubble清单")])]),
+                                c("TodoList")
+                            ], 1)
+                        ])
+                    ], 1)
+                ], 1),
+                c("el-footer", [vm._v("q1mi出品 Go学习交流QQ群：645090316")])
+            ], 1);
+        }, indexStaticRenderFns = [];
+
+        var TodoListTemplate = function () {
+            var vm = this, createElement = vm.$createElement, c = vm._self._c || createElement;
+            return c("el-card", { staticClass: "box-card" }, [
+                c("el-row", { attrs: { gutter: 20 } }, [
+                    c("el-col", { attrs: { span: 16, offset: 2 } }, [
+                        c("el-input", {
+                            attrs: { size: "", placeholder: "请输入待办事项..." },
+                            model: {
+                                value: vm.newTitle,
+                                callback: function (val) { vm.newTitle = val; },
+                                expression: "newTitle"
+                            }
+                        })
+                    ], 1),
+                    c("el-col", { attrs: { span: 6 } }, [
+                        c("el-button", {
+                            attrs: { type: "primary", icon: "el-icon-plus", circle: "" },
+                            on: { click: vm.handleAdd }
+                        })
+                    ], 1)
+                ], 1),
+                c("el-divider"),
+                c("el-table", {
+                    staticStyle: { width: "100%" },
+                    attrs: { data: vm.tableData, "row-class-name": vm.tableRowClassName }
+                }, [
+                    c("el-table-column", { attrs: { type: "index", width: "50" } }),
+                    c("el-table-column", { attrs: { align: "center", label: "待办事项", prop: "title" } }),
+                    c("el-table-column", {
+                        attrs: { align: "right", label: "操作" },
+                        scopedSlots: vm._u([{
+                            key: "default",
+                            fn: function (scope) {
+                                return [
+                                    c("el-button", {
+                                        directives: [{ name: "show", rawName: "v-show", value: !scope.row.status, expression: "!scope.row.status" }],
+                                        attrs: { type: "success", icon: "el-icon-check", circle: "" },
+                                        on: { click: function () { return vm.handleEdit(scope.$index, scope.row); } }
+                                    }),
+                                    c("el-button", {
+                                        directives: [{ name: "show", rawName: "v-show", value: scope.row.status, expression: "scope.row.status" }],
+                                        attrs: { type: "warning", icon: "el-icon-refresh-left", circle: "" },
+                                        on: { click: function () { return vm.handleEdit(scope.$index, scope.row); } }
+                                    }),
+                                    c("el-button", {
+                                        attrs: { type: "danger", icon: "el-icon-close", circle: "" },
+                                        on: { click: function () { return vm.handleDelete(scope.$index, scope.row.id); } }
+                                    })
+                                ];
+                            }
+                        }])
+                    })
+                ], 1)
+            ], 1);
+        }, todoListStaticRenderFns = [];
+
+        var TodoList = {
+            name: "TodoList",
+            data: function () {
+                return {
+                    tableData: [],
+                    newTitle: ""
+                };
+            },
+            mounted: function () {
+                var vm = this;
+                this.axios.get("/v1/todo").then(function (res) {
+                    vm.tableData = res.data;
+                });
+            },
+            methods: {
+                tableRowClassName: function (rowObj) {
+                    var row = rowObj.row;
+                    return row.status ? "success-row" : "";
+                },
+                getTodoList: function () {
+                    var vm = this;
+                    this.axios.get("/v1/todo").then(function (res) {
+                        vm.tableData = res.data;
+                    });
+                },
+                handleEdit: function (index, row) {
+                    var vm = this,
+                        msg = row.status ? " 置为未完成" : " 置为已完成";
+                    this.axios.put("/v1/todo/" + row.id, { status: !row.status }).then(function () {
+                        vm.tableData[index].status = !row.status;
+                        vm.$message({
+                            showClose: true,
+                            duration: 1500,
+                            message: "<" + row.title + "> " + msg,
+                            type: "success"
+                        });
+                    });
+                },
+                handleDelete: function (index, id) {
+                    var vm = this;
+                    this.axios.delete("/v1/todo/" + id).then(function () {
+                        vm.tableData.splice(index, 1);
+                        vm.$message({
+                            showClose: true,
+                            duration: 1500,
+                            message: "删除待办事项成功",
+                            type: "success"
+                        });
+                    });
+                },
+                handleAdd: function () {
+                    var vm = this;
+                    if (this.newTitle != "") {
+                        this.axios.post("/v1/todo", { title: this.newTitle }).then(function () {
+                            vm.getTodoList();
+                            vm.$message({
+                                showClose: true,
+                                duration: 1500,
+                                message: "添加待办事项成功",
+                                type: "success"
+                            });
+                        });
+                        this.newTitle = "";
+                    } else {
+                        this.$message({
+                            showClose: true,
+                            duration: 1500,
+                            message: "title不能为空哦",
+                            type: "warning"
+                        });
+                    }
+                }
+            }
+        };
+
+        var TodoListComponent = TodoList,
+            TodoListRender = (__webpack_require__("ed30"), __webpack_require__("2877")),
+            TodoListExport = Object(TodoListRender["a"])(TodoListComponent, TodoListTemplate, todoListStaticRenderFns, false, null, null, null),
+            TodoListFinal = TodoListExport.exports;
+
+        var Index = {
+            name: "Index",
+            components: { TodoList: TodoListFinal }
+        };
+
+        var IndexComponent = Index,
+            IndexExport = (__webpack_require__("8fc1"), Object(TodoListRender["a"])(IndexComponent, IndexTemplate, indexStaticRenderFns, false, null, null, null)),
+            IndexFinal = IndexExport.exports;
+
+        var App = {
+            name: "app",
+            components: { Index: IndexFinal }
+        };
+
+        var AppComponent = App,
+            AppExport = (__webpack_require__("034f"), Object(TodoListRender["a"])(AppComponent, AppTemplate, appStaticRenderFns, false, null, null, null)),
+            AppFinal = AppExport.exports;
+
+        var ElementUI = __webpack_require__("5c96"),
+            ElementUIModule = __webpack_require__.n(ElementUI);
+        __webpack_require__("0fae");
+        Vue["default"].use(ElementUIModule.a);
+
+        var VueRouter = __webpack_require__("8c4f");
+        Vue["default"].use(VueRouter["a"]);
+        var routes = [{ path: "/", name: "index", component: IndexFinal }],
+            router = new VueRouter["a"]({ routes: routes });
+
+        Vue["default"].config.productionTip = true;
+        new Vue["default"]({
+            router: router,
+            render: function (h) { return h(AppFinal); }
+        }).$mount("#app");
+    },
+    "85ec": function (module, exports, __webpack_require__) { },
+    "89d2": function (module, exports, __webpack_require__) { },
+    "8fc1": function (module, exports, __webpack_require__) {
+        "use strict";
+        var style = __webpack_require__("9272"), styleModule = __webpack_require__.n(style);
+        styleModule.a;
+    },
+    9272: function (module, exports, __webpack_require__) { },
+    ed30: function (module, exports, __webpack_require__) {
+        "use strict";
+        var style = __webpack_require__("89d2"), styleModule = __webpack_require__.n(style);
+        styleModule.a;
+    }
+});
