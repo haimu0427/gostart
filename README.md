@@ -1,5 +1,8 @@
 # 我的 Go 语言学习之路
 
+## 小项目
+- [todolist](./src/bubble_proj/readme.md)
+- [海量用户通讯系统](./src/chatroom/README.md)
 ## 第一阶段：初识 Go
 
 - **8 月 4 日**：完成了第一个小项目，跟着尚硅谷qimi课程系统学习 Go 语言基础。
