@@ -148,7 +148,7 @@
         var IndexTemplate = function () {
             var vm = this, createElement = vm.$createElement, c = vm._self._c || createElement;
             return c("el-container", [
-                c("el-header", [vm._v("gin框架小练习")]),
+                c("el-header", [vm._v("gin框架小练习--todolist")]),
                 c("el-main", [
                     c("el-row", { attrs: { type: "flex", justify: "center" } }, [
                         c("el-col", { attrs: { xs: 20, span: 12 } }, [
@@ -159,7 +159,7 @@
                         ])
                     ], 1)
                 ], 1),
-                c("el-footer", [vm._v("q1mi出品 Go学习交流QQ群：645090316")])
+                c("el-footer", [vm._v("XXX")])
             ], 1);
         }, indexStaticRenderFns = [];
 

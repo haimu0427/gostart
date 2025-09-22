@@ -3,6 +3,8 @@ package router
 import (
 	"net/http"
 	"proj/controller"
+	"proj/login"
+	"proj/middle"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +14,17 @@ func SetupRouter() *gin.Engine {
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./static")
 	r.GET("/", controller.IndexHandler)
+	r.GET("/index.html", controller.IndexHandler)
+	r.GET("/login.html", func(c *gin.Context) { c.HTML(http.StatusOK, "login.html", nil) })
+	r.GET("/login", func(c *gin.Context) { c.HTML(http.StatusOK, "login.html", nil) })
+
+	// Auth routes
+	r.POST("/register", login.RegisterHandler)
+	r.POST("/login", login.LoginHandler)
+
+	// 受保护的v1组
 	v1Group := r.Group("v1")
+	v1Group.Use(middle.JWTAuthMiddleware())
 	{
 		v1Group.GET("/", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{

@@ -13,7 +13,8 @@ var (
 )
 
 func main() {
-	for i := 1; i <= 200; i++ { //并发错误,共同读取同一个内存空间fatal error: concurrent map writes
+	for i := 1; i <= 200; i++ {
+		//并发错误,共同读取同一个内存空间fatal error: concurrent map writes
 		go jiecheng(i)
 	}
 	for i, v := range JiechengNum {

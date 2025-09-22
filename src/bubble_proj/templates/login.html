@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户登录 - Bubble</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet" />
+    <link href="../static/css/chunk-vendors.57db8905.css" rel="stylesheet" />
+    <link href="../static/css/app.8eeeaf31.css" rel="stylesheet" />
+    <link href="../static/css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <div class="login-wrapper">
+            <h2 class="logo">Bubble 清单登录</h2>
+            <el-form :model="form" :rules="rules" ref="loginForm" label-width="0" class="login-form"
+                @keyup.enter.native="onSubmit">
+                <el-form-item prop="username">
+                    <el-input v-model.trim="form.username" autocomplete="off" placeholder="用户名">
+                        <template #prefix><i class="el-icon-user"></i></template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input v-model.trim="form.password" autocomplete="off" placeholder="密码" show-password>
+                        <template #prefix><i class="el-icon-lock"></i></template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" :loading="loading" style="width:100%" @click="onSubmit">登 录</el-button>
+                </el-form-item>
+                <el-alert v-if="error" :title="error" type="error" show-icon :closable="false" />
+            </el-form>
+            <p class="tips">没有账号？<a href="javascript:void(0)" @click="showRegister=true">先注册</a></p>
+            <el-dialog title="注册" :visible.sync="showRegister" width="400px" @closed="resetRegister">
+                <el-form :model="register" :rules="registerRules" ref="registerForm" label-width="0">
+                    <el-form-item prop="username">
+                        <el-input v-model.trim="register.username" placeholder="用户名" />
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input v-model.trim="register.password" placeholder="密码" show-password />
+                    </el-form-item>
+                    <el-form-item prop="confirm">
+                        <el-input v-model.trim="register.confirm" placeholder="确认密码" show-password />
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <div class="dialog-footer">
+                        <el-button @click="showRegister=false">取 消</el-button>
+                        <el-button type="primary" :loading="registerLoading" @click="onRegister">注 册</el-button>
+                    </div>
+                </template>
+            </el-dialog>
+        </div>
+    </div>
+    <!-- CDN: Vue / ElementUI / axios (优先本地打包, 若已有请去掉重复) -->
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1/dist/axios.min.js"></script>
+    <script src="../static/js/login.js"></script>
+</body>
+
+</html>

@@ -1,6 +1,8 @@
 package dao
 
 import (
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -11,6 +13,15 @@ type Todo struct {
 	ID     int    `json:"id"`
 	Title  string `json:"title"`
 	Status bool   `json:"status"`
+}
+
+// User 用户模型
+type User struct {
+	ID        uint      `json:"id" gorm:"primaryKey"`
+	Username  string    `json:"username" gorm:"size:64;uniqueIndex;not null"`
+	Password  string    `json:"-" gorm:"size:255;not null"` // 存储哈希
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 func InitMYSQL() error {
@@ -32,7 +43,7 @@ func InitMYSQL() error {
 	}
 
 	//模型绑定
-	err = DB.AutoMigrate(&Todo{})
+	err = DB.AutoMigrate(&Todo{}, &User{})
 	if err != nil {
 		return err
 	}
