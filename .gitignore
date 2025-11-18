@@ -1,2 +1,7 @@
 .gitignore
+/.vscode
 /pkg
+/lint-master
+/bin
+/src/bubble_proj/templates
+/src/bubble_proj/static
